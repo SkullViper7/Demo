@@ -20,17 +20,20 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     private bool isGrounded;
 
+    private GameObject tp;
+
     private void Awake()
     {
         controls = new InputMaster();
         controller = GetComponent<CharacterController>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Grav();
         PlayerMvmnt();
         Jump();
+        TP();
     }
 
     private void Grav()
@@ -58,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (controls.Player.Jump.triggered)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * 2f * gravity);
+            velocity.y = jumpHeight;
         }
     }
 
@@ -70,5 +73,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         controls.Disable();
+    }
+
+    private void TP()
+    {
+        tp = GameObject.FindGameObjectWithTag("Bullet");
+        if (controls.Player.TP.triggered)
+        {
+            transform.position = tp.transform.position;
+        }
     }
 }

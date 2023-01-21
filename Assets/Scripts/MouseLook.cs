@@ -5,7 +5,7 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {
     public float mouseSensitivity = 1000f;
-    public float xRotation = 0f;
+    private float xRotation = 0f;
 
     public Transform playerBody;
 
@@ -14,7 +14,7 @@ public class MouseLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
