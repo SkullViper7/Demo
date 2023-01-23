@@ -128,3 +128,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -5979440262379958804}
+  player: {fileID: 5090726670223187118, guid: bf5f023b4017a5e41a9815ec5745df3d, type: 3}

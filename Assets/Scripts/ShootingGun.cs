@@ -6,6 +6,7 @@ public class ShootingGun : MonoBehaviour
     //bullet 
     public GameObject bullet;
 
+
     //bullet force
     public float shootForce, upwardForce;
 
@@ -124,6 +125,7 @@ public class ShootingGun : MonoBehaviour
         //if more than one bulletsPerTap make sure to repeat shoot function
         if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
             Invoke("Shoot", timeBetweenShots);
+
     }
     private void ResetShot()
     {

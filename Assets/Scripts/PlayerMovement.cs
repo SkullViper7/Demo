@@ -36,9 +36,10 @@ public class PlayerMovement : MonoBehaviour
         TP();
     }
 
+    //Gravity Physics
     private void Grav()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, distanceToGround, groundMask);
+        isGrounded = Physics.CheckSphere(groundCheck.position, distanceToGround, groundMask); //Check if the player is touching ground
 
         if (isGrounded && velocity.y < 0)
         {
@@ -49,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    //Movement inputs
     private void PlayerMvmnt()
     {
         move = controls.Player.Move.ReadValue<Vector2>();
@@ -57,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(movement * moveSpeed * Time.deltaTime);
     }
 
+    //Jumping inputs
     private void Jump()
     {
         if (controls.Player.Jump.triggered)
@@ -75,12 +78,19 @@ public class PlayerMovement : MonoBehaviour
         controls.Disable();
     }
 
+    //TP inputs
     private void TP()
     {
         tp = GameObject.FindGameObjectWithTag("Bullet");
         if (controls.Player.TP.triggered)
         {
             transform.position = tp.transform.position;
+            Invoke("DestroyBullet", 0.1f);
         }
+    }
+
+    private void DestroyBullet()
+    {
+        Destroy(tp);
     }
 }

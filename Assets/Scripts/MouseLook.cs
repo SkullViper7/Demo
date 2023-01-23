@@ -9,6 +9,7 @@ public class MouseLook : MonoBehaviour
 
     public Transform playerBody;
 
+    //Hide cursor
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
