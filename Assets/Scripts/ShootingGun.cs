@@ -1,7 +1,8 @@
 using UnityEngine;
 using TMPro;
+using FishNet.Object;
 
-public class ShootingGun : MonoBehaviour
+public class ShootingGun : NetworkBehaviour
 {
     //bullet 
     public GameObject bullet;
@@ -44,6 +45,11 @@ public class ShootingGun : MonoBehaviour
 
     private void Update()
     {
+        if (!base.IsOwner)
+        {
+            return;
+        }
+
         MyInput();
 
         //Set ammo display, if it exists :D

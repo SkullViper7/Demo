@@ -127,5 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31f7b5da6032904a9fa04720dafa4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   rb: {fileID: -5979440262379958804}
-  player: {fileID: 5090726670223187118, guid: bf5f023b4017a5e41a9815ec5745df3d, type: 3}

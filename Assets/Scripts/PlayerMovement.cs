@@ -1,9 +1,10 @@
+using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [Header("Player")]
     private InputMaster controls;
@@ -30,6 +31,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (!base.IsOwner)
+        {
+            return;
+        }
+
         Grav();
         PlayerMvmnt();
         Jump();
@@ -62,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     //Jumping inputs
     private void Jump()
     {
-        if (controls.Player.Jump.triggered)
+        if (controls.Player.Jump.triggered && isGrounded)
         {
             velocity.y = jumpHeight;
         }
