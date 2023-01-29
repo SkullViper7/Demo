@@ -7,14 +7,6 @@ public class Bullet : NetworkBehaviour
 {
     public Rigidbody rb;
 
-    private void Update()
-    {
-        if (!base.IsOwner)
-        {
-            return;
-        }
-    }
-
     //Freeze bullet when touching ground
     private void OnCollisionEnter(Collision other)
     {

@@ -158,7 +158,9 @@ GameObject:
   - component: {fileID: 4226581803955976451}
   - component: {fileID: 4226581803955976450}
   - component: {fileID: 4226581803955976694}
-  - component: {fileID: 4226581803955976452}
+  - component: {fileID: 7518230073185369735}
+  - component: {fileID: 1434874684744259530}
+  - component: {fileID: 59403552}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -271,9 +273,9 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 4226581803955976450}
-  - {fileID: 4226581803955976452}
+  - {fileID: 1434874684744259530}
+  - {fileID: 59403552}
   - {fileID: 8343840514661764629}
-  - {fileID: 4226581803955976457}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
@@ -286,7 +288,22 @@ MonoBehaviour:
   <AssetPathHash>k__BackingField: 7807759643866311769
   _sceneNetworkObjects:
   - {fileID: 4226581803955976694}
---- !u!114 &4226581803955976452
+--- !u!114 &7518230073185369735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4226581803955976631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _overrideType: 3
+  _updateHostVisibility: 1
+  _observerConditions: []
+--- !u!114 &1434874684744259530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -328,6 +345,33 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &59403552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4226581803955976631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a023b3ef11d4684bbdde56690ccfab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 4226581803955976694}
+  _networkObjectCache: {fileID: 4226581803955976694}
+  bullet: {fileID: 2575332807818811951, guid: 526d2d8653fdccc4289e8aea1337fbbb, type: 3}
+  shootForce: 20
+  upwardForce: 0
+  timeBetweenShooting: 0.1
+  spread: 3
+  reloadTime: 1.5
+  timeBetweenShots: 0
+  magazineSize: 100
+  bulletsPerTap: 1
+  allowButtonHold: 0
+  fpsCam: {fileID: 8343840514661764630}
+  attackPoint: {fileID: 4226581803955976651}
 --- !u!1 &8343840514661764633
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb8a19fdbfb02f46922aa7ae8e79ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 4226581803955976694}
   _networkObjectCache: {fileID: 4226581803955976694}
   mouseSensitivity: 1000
@@ -493,40 +537,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 495698, guid: 1d8e61deede12df46b37e582ad640c5c, type: 3}
   m_PrefabInstance: {fileID: 6603989634935937286}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6603989634935806522 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 131900, guid: 1d8e61deede12df46b37e582ad640c5c, type: 3}
-  m_PrefabInstance: {fileID: 6603989634935937286}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4226581803955976457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6603989634935806522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a023b3ef11d4684bbdde56690ccfab8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 3
-  _addedNetworkObject: {fileID: 4226581803955976694}
-  _networkObjectCache: {fileID: 4226581803955976694}
-  bullet: {fileID: 2575332807818811951, guid: 526d2d8653fdccc4289e8aea1337fbbb, type: 3}
-  shootForce: 20
-  upwardForce: 0
-  timeBetweenShooting: 0.1
-  spread: 3
-  reloadTime: 1.5
-  timeBetweenShots: 0
-  magazineSize: 100
-  bulletsPerTap: 1
-  allowButtonHold: 0
-  playerRb: {fileID: 0}
-  recoilForce: 0
-  fpsCam: {fileID: 0}
-  attackPoint: {fileID: 4226581803955976651}
-  muzzleFlash: {fileID: 0}
-  ammunitionDisplay: {fileID: 0}
-  allowInvoke: 1

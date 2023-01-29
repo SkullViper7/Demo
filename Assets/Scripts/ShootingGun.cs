@@ -18,10 +18,6 @@ public class ShootingGun : NetworkBehaviour
 
     int bulletsLeft, bulletsShot;
 
-    //Recoil
-    public Rigidbody playerRb;
-    public float recoilForce;
-
     //bools
     bool shooting, readyToShoot, reloading;
 
@@ -29,12 +25,8 @@ public class ShootingGun : NetworkBehaviour
     public Camera fpsCam;
     public Transform attackPoint;
 
-    //Graphics
-    public GameObject muzzleFlash;
-    public TextMeshProUGUI ammunitionDisplay;
-
     //bug fixing :D
-    public bool allowInvoke = true;
+    private bool allowInvoke = true;
 
     private void Awake()
     {
@@ -52,9 +44,6 @@ public class ShootingGun : NetworkBehaviour
 
         MyInput();
 
-        //Set ammo display, if it exists :D
-        if (ammunitionDisplay != null)
-            ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
     }
     private void MyInput()
     {
@@ -111,9 +100,6 @@ public class ShootingGun : NetworkBehaviour
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
 
-        //Instantiate muzzle flash, if you have one
-        if (muzzleFlash != null)
-            Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
         bulletsLeft--;
         bulletsShot++;
@@ -123,9 +109,6 @@ public class ShootingGun : NetworkBehaviour
         {
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
-
-            //Add recoil to player (should only be called once)
-            playerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
         }
 
         //if more than one bulletsPerTap make sure to repeat shoot function
