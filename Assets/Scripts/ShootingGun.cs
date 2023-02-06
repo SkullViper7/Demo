@@ -1,12 +1,13 @@
 using UnityEngine;
 using TMPro;
 using FishNet.Object;
+using FishNet;
 
 public class ShootingGun : NetworkBehaviour
 {
     //bullet 
     public GameObject bullet;
-
+    public GameObject currentBullet;
 
     //bullet force
     public float shootForce, upwardForce;
@@ -66,6 +67,7 @@ public class ShootingGun : NetworkBehaviour
         }
     }
 
+    [ServerRpc]
     private void Shoot()
     {
         readyToShoot = false;
@@ -92,14 +94,17 @@ public class ShootingGun : NetworkBehaviour
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); //Just add spread to last direction
 
         //Instantiate bullet/projectile
-        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity); //store instantiated bullet in currentBullet
+        currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity); //store instantiated bullet in currentBullet
         //Rotate bullet to shoot direction
         currentBullet.transform.forward = directionWithSpread.normalized;
+
+        InstanceFinder.ServerManager.Spawn(currentBullet);
 
         //Add forces to bullet
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
 
+        currentBullet.GetComponent<Bullet>().shooter = transform;
 
         bulletsLeft--;
         bulletsShot++;

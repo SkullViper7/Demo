@@ -7,21 +7,23 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : NetworkBehaviour
 {
     [Header("Player")]
-    private InputMaster controls;
-    private Vector3 velocity;
-    private Vector3 move;
-    private CharacterController controller;
     public float moveSpeed = 6f;
     public float gravity = -9.81f;
     public float jumpHeight = 2.4f;
     public float distanceToGround = 0.4f;
+
+    private InputMaster controls;
+    private Vector3 velocity;
+    private Vector3 move;
+    private CharacterController controller;
 
     [Header("Ground")]
     public Transform groundCheck;
     public LayerMask groundMask;
     private bool isGrounded;
 
-    private GameObject tp;
+    private GameObject tpPoint;
+    public Bullet bulletScript;
 
     private void Awake()
     {
@@ -87,16 +89,17 @@ public class PlayerMovement : NetworkBehaviour
     //TP inputs
     private void TP()
     {
-        tp = GameObject.FindGameObjectWithTag("Bullet");
-        if (controls.Player.TP.triggered)
+        tpPoint = gameObject.GetComponent<ShootingGun>().currentBullet;
+        if (controls.Player.TP.triggered && bulletScript.canTP)
         {
-            transform.position = tp.transform.position;
-            Invoke("DestroyBullet", 0.1f);
+            transform.position = tpPoint.transform.position;
+            Invoke("DestroyTP", 0.01f);
         }
     }
 
-    private void DestroyBullet()
+    private void DestroyTP()
     {
-        Destroy(tp);
+        Destroy(tpPoint);
+        bulletScript.canTP = false;
     }
 }

@@ -257,6 +257,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  bulletScript: {fileID: 2357214261502606298, guid: 526d2d8653fdccc4289e8aea1337fbbb, type: 3}
 --- !u!114 &4226581803955976694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,13 +362,14 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 4226581803955976694}
   _networkObjectCache: {fileID: 4226581803955976694}
   bullet: {fileID: 2575332807818811951, guid: 526d2d8653fdccc4289e8aea1337fbbb, type: 3}
+  currentBullet: {fileID: 0}
   shootForce: 20
   upwardForce: 0
   timeBetweenShooting: 0.1
   spread: 3
   reloadTime: 1.5
   timeBetweenShots: 0
-  magazineSize: 100
+  magazineSize: 1
   bulletsPerTap: 1
   allowButtonHold: 0
   fpsCam: {fileID: 8343840514661764630}
