@@ -1,8 +1,10 @@
+using FishNet.Connection;
 using FishNet.Object;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.Shapes;
 
 public class PlayerMovement : NetworkBehaviour
 {
@@ -24,6 +26,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private GameObject tpPoint;
     public Bullet bulletScript;
+    public ShootingGun sg;
 
     private void Awake()
     {
@@ -41,6 +44,12 @@ public class PlayerMovement : NetworkBehaviour
         Grav();
         PlayerMvmnt();
         Jump();
+        TPServer();
+    }
+
+    [ServerRpc]
+    public void TPServer()
+    {
         TP();
     }
 
@@ -87,12 +96,15 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     //TP inputs
-    private void TP()
+    [ObserversRpc]
+    public void TP()
     {
         tpPoint = gameObject.GetComponent<ShootingGun>().currentBullet;
-        if (controls.Player.TP.triggered && bulletScript.canTP)
+        if (controls.Player.TP.triggered && sg.currentBullet.GetComponent<Bullet>().canTP)
         {
             transform.position = tpPoint.transform.position;
+            sg.currentBullet.GetComponent<Bullet>().canTP = true;
+            sg.canShoot = true;
             Invoke("DestroyTP", 0.01f);
         }
     }
@@ -100,6 +112,5 @@ public class PlayerMovement : NetworkBehaviour
     private void DestroyTP()
     {
         Destroy(tpPoint);
-        bulletScript.canTP = false;
     }
 }

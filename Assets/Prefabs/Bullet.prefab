@@ -133,7 +133,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 1598487241242881}
   _networkObjectCache: {fileID: 1598487241242881}
   rb: {fileID: -5979440262379958804}
-  pm: {fileID: 4226581803955976450, guid: a7836ed7a2b818f42b2772fe90215bf4, type: 3}
+  canTP: 0
 --- !u!114 &1598487241242881
 MonoBehaviour:
   m_ObjectHideFlags: 0

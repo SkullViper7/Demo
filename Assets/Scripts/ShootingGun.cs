@@ -21,6 +21,7 @@ public class ShootingGun : NetworkBehaviour
 
     //bools
     bool shooting, readyToShoot, reloading;
+    public bool canShoot = true;
 
     //Reference
     public Camera fpsCam;
@@ -44,8 +45,8 @@ public class ShootingGun : NetworkBehaviour
         }
 
         MyInput();
-
     }
+
     private void MyInput()
     {
         //Check if allowed to hold down button and take corresponding input
@@ -58,17 +59,23 @@ public class ShootingGun : NetworkBehaviour
         if (readyToShoot && shooting && !reloading && bulletsLeft <= 0) Reload();
 
         //Shooting
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 && canShoot)
         {
             //Set bullets shot to 0
             bulletsShot = 0;
 
-            Shoot();
+            ShootServer();
         }
     }
 
     [ServerRpc]
-    private void Shoot()
+    public void ShootServer()
+    {
+        Shoot();
+    }
+
+    [ObserversRpc]
+    public void Shoot()
     {
         readyToShoot = false;
 
@@ -95,6 +102,7 @@ public class ShootingGun : NetworkBehaviour
 
         //Instantiate bullet/projectile
         currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity); //store instantiated bullet in currentBullet
+
         //Rotate bullet to shoot direction
         currentBullet.transform.forward = directionWithSpread.normalized;
 
@@ -104,10 +112,11 @@ public class ShootingGun : NetworkBehaviour
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
 
-        currentBullet.GetComponent<Bullet>().shooter = transform;
+        //currentBullet.GetComponent<Bullet>().shooter = gameObject;
 
         bulletsLeft--;
         bulletsShot++;
+        canShoot = false;
 
         //Invoke resetShot function (if not already invoked), with your timeBetweenShooting
         if (allowInvoke)
@@ -119,7 +128,6 @@ public class ShootingGun : NetworkBehaviour
         //if more than one bulletsPerTap make sure to repeat shoot function
         if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
             Invoke("Shoot", timeBetweenShots);
-
     }
     private void ResetShot()
     {
