@@ -44,14 +44,14 @@ public class PlayerMovement : NetworkBehaviour
         Grav();
         PlayerMvmnt();
         Jump();
-        TPServer();
-    }
-
-    [ServerRpc]
-    public void TPServer()
-    {
         TP();
     }
+
+    //[ServerRpc]
+    //public void TPServer()
+    //{
+    //    TP();
+    //}
 
     //Gravity Physics
     private void Grav()
@@ -96,16 +96,16 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     //TP inputs
-    [ObserversRpc]
+    //[ObserversRpc]
     public void TP()
     {
         tpPoint = gameObject.GetComponent<ShootingGun>().currentBullet;
         if (controls.Player.TP.triggered && sg.currentBullet.GetComponent<Bullet>().canTP)
         {
             transform.position = tpPoint.transform.position;
-            sg.currentBullet.GetComponent<Bullet>().canTP = true;
+            sg.currentBullet.GetComponent<Bullet>().canTP = false;
             sg.canShoot = true;
-            Invoke("DestroyTP", 0.01f);
+            Invoke("DestroyTP", 0.05f);
         }
     }
 
